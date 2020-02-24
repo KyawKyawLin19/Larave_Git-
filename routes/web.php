@@ -11,9 +11,11 @@
 |
 */
 
-Route::get('/','HomeController@index');
-Route::get('php','HomeController@phpPage');
-Route::get('js','HomeController@jsPage');
+// Route::get('/','HomeController@index');
+// Route::get('php','HomeController@phpPage');
+// Route::get('js','HomeController@jsPage');
+
+Route::get('/','ReceipeController@index');
 
 // Route::get('/', function () {
 //     return view('home')->With('name','This is Home Page');
