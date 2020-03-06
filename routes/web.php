@@ -15,7 +15,15 @@
 // Route::get('php','HomeController@phpPage');
 // Route::get('js','HomeController@jsPage');
 
-Route::get('/','ReceipeController@index');
+// Route::get('receipe','ReceipeController@index');
+// Route::get('create_receipe','ReceipeController@createReceipeForm');
+// Route::get('show/{id}','ReceipeController@show');
+// Route::get('show/{id}/edit','ReceipeController@edit');
+// Route::post('receipe','ReceipeController@create');
+// Route::patch('receipe/{id}','ReceipeController@update');
+// Route::delete('receipe/{id}','ReceipeController@delete');
+
+Route::resource('receipe','ReceipeController');
 
 // Route::get('/', function () {
 //     return view('home')->With('name','This is Home Page');
