@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('/',function(){
+	dd(app('testProvider'));
+});
+
 Route::resource('receipe','ReceipeController');
 Route::get('home','HomeController@index');
 
