@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Events\receipecreateevent;
 use App\Mail\ReceipeStored;
+use App\Notifications\ReceipeDeletedNotification;
+use App\Notifications\ReceipeStoredNotification;
+use App\Notifications\ReceipeUpdatedNotification;
 use App\Receipe;
+use App\User;
 use App\test;
 use Illuminate\Http\Request;
 use Illuminate\Session\flash;
@@ -20,7 +25,7 @@ class ReceipeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth','verified']);
     }
 
     /**
@@ -30,7 +35,7 @@ class ReceipeController extends Controller
      */
     public function index()
     {
-        $data = Receipe::where('author_id',auth()->id())->get();
+        $data = Receipe::where('author_id',auth()->id())->Paginate('3');
         return view('home',compact('data'));
     }
 
@@ -60,7 +65,10 @@ class ReceipeController extends Controller
             ]);
 
         $receipe = Receipe::create($validatedData + ['author_id' => auth()->id()]);
-        return redirect("receipe");
+        $user = User::find(1);
+        $user->notify(new ReceipeStoredNotification());
+        // event(new receipecreateevent($receipe));
+        return redirect("receipe")->with("message","Receipe Created successfully!!!");
     }
 
     /**
@@ -108,8 +116,9 @@ class ReceipeController extends Controller
         ]);
 
         $receipe->update($validatedData);
-        
-        return redirect('receipe')->with("message","Receipe Updated successfully!!!");
+        $user = User::find(1);
+        $user->notify(new ReceipeUpdatedNotification());
+        return redirect('receipe')->with("message_update","Receipe Updated successfully!!!");
     }
 
     /**
@@ -121,6 +130,8 @@ class ReceipeController extends Controller
     public function destroy(Receipe $receipe)
     {
         $receipe->delete();
+        $user = User::find(1);
+        $user->notify(new ReceipeDeletedNotification());
         return redirect('receipe')->with("message_delete","Receipe Deleted successfully!!!");
     }
 }

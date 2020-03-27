@@ -15,11 +15,9 @@ class Receipe extends Model
     protected static function boot(){
     	parent::boot();
 
-    	static::created(function($receipe){
-    		session()->flash("message","Receipe created successfully!!");
-
-        	Mail::to('kyawkyawlin19954@gmail.com')->send(new ReceipeStored($receipe));
-    	});
+    	// static::created(function($receipe){
+    	// 	session()->flash("message","Receipe created successfully!!");
+    	// });
     }
 
     public function categories()

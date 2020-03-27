@@ -11,11 +11,15 @@
 |
 */
 
-Route::get('/',function(){
-	dd(app('testProvider'));
-});
+Route::get('/','PublicController@index');
+Route::get('detail/{id}','PublicController@show');
+Route::get('loginsample','PublicController@login');
+
+Route::get('/test','TestController@index');
 
 Route::resource('receipe','ReceipeController');
+Route::resource('category','CategoryController');
+
 Route::get('home','HomeController@index');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
