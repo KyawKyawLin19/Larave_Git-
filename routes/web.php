@@ -11,11 +11,13 @@
 |
 */
 
-Route::get('/',function(){
-	dd(app('testProvider'));
-});
+Route::resource('qcenter','QCenterController');
+Route::get('/getData/{id}','QCenterController@getData');
+Route::get('/getHospital/{id}','QCenterController@getHospital');
+Route::post('/search','QCenterController@searchQuser');
 
-Route::resource('receipe','ReceipeController');
+Route::get('/getTownships/{id}','QCenterController@getTownships');
 Route::get('home','HomeController@index');
+Route::get('welcome','HomeController@welcome');
 
-Auth::routes();
+Auth::routes(['verify'=>true]);

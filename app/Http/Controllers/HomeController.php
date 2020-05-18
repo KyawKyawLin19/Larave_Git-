@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware(['auth','verified']);
+    }
 
     /**
      * Show the application dashboard.
@@ -14,6 +18,11 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
+    {
+        return view('home');
+    }
+
+    public function welcome()
     {
         return view('welcome');
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddAuthorIdToUsersTable extends Migration
+class CreateTownshipsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddAuthorIdToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('receipes', function (Blueprint $table) {
-            $table->integer('author_id');
+        Schema::create('townships', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->integer('city_id');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddAuthorIdToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('receipes', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('townships');
     }
 }
